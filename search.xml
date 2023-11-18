@@ -404,6 +404,31 @@
     
     
     <entry>
+      <title>项目相关问题</title>
+      <link href="/2022/07/27/%E9%A1%B9%E7%9B%AE%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/"/>
+      <url>/2022/07/27/%E9%A1%B9%E7%9B%AE%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<h2 id="退出登录后跳转回原来的页面"><a href="#退出登录后跳转回原来的页面" class="headerlink" title="退出登录后跳转回原来的页面"></a>退出登录后跳转回原来的页面</h2><p>在退出登录时,使用<code>$route.fullpath</code>方法获取到页面的完整地址,作为查询参数拼接到登录页的地址的后面,在后面的登录时,就会直接跳转到退出登陆之前的界面,为了优化体验可以把所有的涉及到登录的页面的跳转地址全部使用<code>$route.query.redirect</code>获取到路由参数拼接到登录页的地址的后面,判断一下,如果是初次登录就直接跳转到首页</p><h2 id="递归平铺结构转树形结构"><a href="#递归平铺结构转树形结构" class="headerlink" title="递归平铺结构转树形结构"></a>递归平铺结构转树形结构</h2><p>封装一个<code>transList2Tree</code>工具函数对外导出,全局使用,接收一个数组和传进来的<code>pid</code>,并在里面创建一个数组,</p><p>遍历传进来的数组里面的每一项的,判断每一项的id是不是和传进来的<code>pid</code>是不是相同的,如果是的,那么这一项就是对应的这一项的子集,使用<code>push</code>添加到数组中</p><p>然后在里面继续遍历查找,比对里面的<code>item.id</code>,装到<code>item.children</code>里面</p><h2 id="用户权限控制"><a href="#用户权限控制" class="headerlink" title="用户权限控制"></a>用户权限控制</h2><p>系统实现了多级别的用户权限管理系统，包括管理员、普通用户等角色，以及对不同角色的访问权限控制。这种权限控制系统确保只有授权的用户能够执行特定操作，保护了数据的安全性</p><p>管理员可以分配角色并配置相应的权限，以确保用户只能访问其所需的功能</p><p>拆分路由，<code>dieRoutes</code>静态路由，<code>liveRoutes</code>动态路由，对外导出</p><p>依据后端返回的用户的权限信息到动态路由中进行filter筛选出符合条件的路由<code>router.addroutes</code>(接受一个数组)方法添加到当前动态路由中，再重新定向到目标地点<code>next(to.path)</code></p><p>页面刷新<code>404bug</code></p><p>404页面必须是在路由的最后一个</p><h2 id="封装自定义权限指令实现按钮级别的权限控制"><a href="#封装自定义权限指令实现按钮级别的权限控制" class="headerlink" title="封装自定义权限指令实现按钮级别的权限控制"></a>封装自定义权限指令实现按钮级别的权限控制</h2><p>在<code>main.js</code>全局注册自定义指令，（第一个参数是自定义指令名，第二个参数是<code>inserted</code>回调函数,绑定了该指令的元素被插入到<code>dom</code>上时就会自动执行）通过第二个参数获取其对应的权限点的<code>value</code>属性，然后在<code>vuex</code>中的用户信息里进行筛选看用户是否具有该权限，使用<code>v-if</code>来决定是否显示对应的元素</p><h2 id="退出登录后跳转回原来的页面-1"><a href="#退出登录后跳转回原来的页面-1" class="headerlink" title="退出登录后跳转回原来的页面"></a>退出登录后跳转回原来的页面</h2><p>在退出登录时,使用<code>$route.fullpath</code>方法获取到页面的完整地址,作为查询参数拼接到登录页的地址的后面,在后面的登录时,就会直接跳转到退出登陆之前的界面,为了优化体验可以把所有的涉及到登录的页面的跳转地址全部使用<code>$route.query.redirect</code>获取到路由参数拼接到登录页的地址的后面,判断一下,如果是初次登录就直接跳转到首页</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 项目 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>那些年用过的css奇妙用法之能用css就不用js技巧系列</title>
       <link href="/2021/09/27/%E9%82%A3%E4%BA%9B%E5%B9%B4%E7%94%A8%E8%BF%87%E7%9A%84css%E5%A5%87%E5%A6%99%E7%94%A8%E6%B3%95%E4%B9%8B%E8%83%BD%E7%94%A8css%E5%B0%B1%E4%B8%8D%E7%94%A8js%E6%8A%80%E5%B7%A7%E7%B3%BB%E5%88%97/"/>
       <url>/2021/09/27/%E9%82%A3%E4%BA%9B%E5%B9%B4%E7%94%A8%E8%BF%87%E7%9A%84css%E5%A5%87%E5%A6%99%E7%94%A8%E6%B3%95%E4%B9%8B%E8%83%BD%E7%94%A8css%E5%B0%B1%E4%B8%8D%E7%94%A8js%E6%8A%80%E5%B7%A7%E7%B3%BB%E5%88%97/</url>
