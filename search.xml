@@ -454,6 +454,31 @@
     
     
     <entry>
+      <title>全网最通俗易懂的讲解git rebase和git merge的原理和区别</title>
+      <link href="/2021/07/27/%E5%85%A8%E7%BD%91%E6%9C%80%E9%80%9A%E4%BF%97%E6%98%93%E6%87%82%E7%9A%84%E8%AE%B2%E8%A7%A3%20git%20rebase%E5%92%8Cgit%20merge%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E5%8C%BA%E5%88%AB/"/>
+      <url>/2021/07/27/%E5%85%A8%E7%BD%91%E6%9C%80%E9%80%9A%E4%BF%97%E6%98%93%E6%87%82%E7%9A%84%E8%AE%B2%E8%A7%A3%20git%20rebase%E5%92%8Cgit%20merge%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E5%8C%BA%E5%88%AB/</url>
+      
+        <content type="html"><![CDATA[<p>Git 作为现在最流行的版本管理工具，想必大家在开发过程中都会使用。由于 Git 中很多操作默认是采用 Merge 进行的，并且相对也不容易出错，所以很多人都会使用 Merge 来进行合并代码。但Rebase 作为 Git 中主要命令之一，我们还是有必要了解一下，在适合的场景中进行使用。<br> <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f5563f5e3cf24247a9d3ef784dad5718~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp" alt="在这里插入图片描述"></p><h1 id="2-Rebase-的作用"><a href="#2-Rebase-的作用" class="headerlink" title="2. Rebase 的作用"></a>2. Rebase 的作用</h1><p>Rebase 中文翻译过来：<code>变基</code>，我觉得这个翻译挺生硬的，导致很多人没有彻底理解变基的含义。我个人把 Rebase 意为 <code>认爸爸</code>，比如可以 Rebase 到马爸爸分支上，成为他的合理继承人。<br> <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b16f8107f6764e95ac4d4467cca98d10~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp" alt="在这里插入图片描述"><br> 上图为一次 Rebase 的情况，可以看到最终效果仿佛 Feature 分支没有存在过，新提交的 Commit 像真的在主分支上提交一样。而如果我们用 Merge 就会产生一个合并节点：<br> <img src="https://cdn.jsdelivr.net/gh/hehuan2023/pic/typora/d21b5a64472b4bdea29fd2e9c7513f17~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp" alt="在这里插入图片描述"><br> 可能只看到一次合并所产生的 Commit 节点并没有什么，但实际项目中大概率会变成这样：<br> <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/edff7351d03a44d485e93fce8624c7ea~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp" alt="在这里插入图片描述"><br> 简直是乱的一批，仿佛看到了多年前其他人写的一堆代码，啥啥啥，这都是啥！反过来看看采用 Rebase 开发的真实项目，没有对比就没有伤害：<br> <img src="https://cdn.jsdelivr.net/gh/hehuan2023/pic/typora/d3df64fa3c834e919c7e9ede0d373458~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp" alt="在这里插入图片描述"><br> 这也是为什么尤雨溪也比较推荐使用 rebase的原因：<br> <img src="https://cdn.jsdelivr.net/gh/hehuan2023/pic/typora/037550764da74a53a8e0e5efbfd63bf3~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp" alt="在这里插入图片描述"></p><h1 id="3-Rebase-怎么用"><a href="#3-Rebase-怎么用" class="headerlink" title="3. Rebase 怎么用"></a>3. Rebase 怎么用</h1><p>其实很多人不用 Rebase ，一方面是不了解实际项目协同中怎么用。另一方面是用了，但问题很多，所以就误认为不好用从而再也不用。这里分享一下，我最近在做项目时所采用 Rebase 方面的协同流程（为了好说明，适当的进行了简化）：</p><h2 id="3-1-Checkout"><a href="#3-1-Checkout" class="headerlink" title="3.1 Checkout"></a>3.1 Checkout</h2><p>首先，我们想从 master 分支上开发新的功能或者修复 bug ，需要 checkout出来一个分支。比如在<br> A节点中 checkout dev 分支，为了让场景更复杂，在 <code>git checkout dev </code>分支后。master 上继续有人提交了B、C，形成如下Git 结构：<br> <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7073ae34eaa84968a17da0a9792ba070~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp" alt="在这里插入图片描述"><br> 这里强调一下，很多人用 Rebase 出问题，都是出在了想要 Rebase 的分支是公共分支。其实这里的 dev 应该是只有自己用的分支才合适，回想一下，Git 本身就是分布式版本管理。其实不用远程仓库也是可以非常好的进行版本控制的，我们要将本地分支和远程分支的概念区分的开一些，这俩没有直接联系。所以你本机随便做个 NB 分支一样可以的，Rebase后没人知道你自己起了个什么鬼名字。</p><h2 id="3-2-远程管理"><a href="#3-2-远程管理" class="headerlink" title="3.2 远程管理"></a>3.2 远程管理</h2><p>如果自己的dev分支并不一定在一台电脑上开展，为了可以自己在多个电脑上开发，我们可以关联了一个自己的远程仓库。这一步是可选的。</p><h2 id="3-3-开始变基"><a href="#3-3-开始变基" class="headerlink" title="3.3 开始变基"></a>3.3 开始变基</h2><p>现在我们在 dev 上开发了D、E，然后<code>dev rebase master</code>，形成了A、B、C、D、E：<br> <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1f212464382649b3adb4dc2306bdbcbc~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp" alt="在这里插入图片描述"><br> 这里虽然看似已经一条直线了，但实际 只有 dev 知道自己的爸爸成为了 master，但 master 并没有认这个儿子。所以我们还需要：<code>master merge dev</code>，这样就在master上形成了一条完美的直线：<br> <img src="https://cdn.jsdelivr.net/gh/hehuan2023/pic/typora/28dba999af1441d3b35d7aba9762e139~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp" alt="在这里插入图片描述"><br> 最后，再<code> git push origin master</code> 到远程分支，完成本次开发。</p><h2 id="3-4-善后"><a href="#3-4-善后" class="headerlink" title="3.4 善后"></a>3.4 善后</h2><p>Rebase 后 dev 由于变基了，相当于已经认贼作父了，现在还想再认回来？休想！所以只能强制解决，在非保护分支中强制push到自己的远程仓库：<code>git push --force origin dev</code>，最后再将dev变基到自己的远程分支：<code>git rebase origin dev</code>，方便自己远程仓库的维护。至此，完成了一次rebase形式的开发，并且可以继续进行下次开发。</p><h1 id="4-Rebase-的优缺点"><a href="#4-Rebase-的优缺点" class="headerlink" title="4. Rebase 的优缺点"></a>4. Rebase 的优缺点</h1><p>先说说优点：</p><ul><li>保持提交历史的线性：使用 merge 合并分支时，会创建一个新的合并提交，从而在提交历史中形成一条新的分支。而使用 rebase，可以将提交记录直接添加到目标分支的末尾，从而保持提交历史的线性。</li><li>减少不必要的合并提交：使用 merge 合并分支时，会创建一个新的合并提交，它可能会包含很多无意义的合并信息。而使用 rebase，可以将提交记录逐个添加到目标分支的末尾，避免了创建不必要的合并提交。</li><li>更好的代码审查和追溯：使用 rebase，可以让提交历史更加直观和易于理解，从而更容易进行代码审查和问题追溯。</li><li>避免冲突的产生：在合并分支时，可能会因为两个分支之间存在冲突而导致合并失败。而使用 rebase，可以在变基之前先解决这些冲突，从而避免了合并时出现的冲突。</li></ul><p>总之，虽然 rebase 不是适用于所有情况的万能解决方案，但在大多数情况下，使用 rebase 能够帮助我们创建更加干净和直观的提交历史，提高团队的协作效率。</p><p>说了这么说好像都在说 Rebase 的优点，那 Rebase就没有缺点嘛？当然不是，要不然大家早就都从 Merge 转 Rebase了。Rebase 的缺点：</p><ul><li>解决冲突繁琐，rebase冲突 是按每个commit来对比的，merge冲突 是按最终结果来对比的，如果用rebase最好是经常去合并一下代码，不然长周期的开发如果就在最后rebase真的是解冲突解到人傻掉。</li><li>没有合并记录，Merge 有记录，出了问题好解决。</li><li>操作步骤相对繁琐。</li></ul><h1 id="5-结语"><a href="#5-结语" class="headerlink" title="5. 结语"></a>5. 结语</h1><p>协同开发最核心的问题其实就是合并，如何合理的合并，优雅的合并，是每个团队需要考虑的问题。Merge 和 Rebase 作为 Git 中主要的命令，其实各有各的优点，两个一起用也是很常见的。根据自身团队及项目情况，选择合适的方式才是最好的。最后，祝大家合并代码一切顺利~</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>初识vue（下）</title>
       <link href="/2021/07/17/%E5%88%9D%E8%AF%86vue%EF%BC%88%E4%B8%8B%EF%BC%89/"/>
       <url>/2021/07/17/%E5%88%9D%E8%AF%86vue%EF%BC%88%E4%B8%8B%EF%BC%89/</url>
