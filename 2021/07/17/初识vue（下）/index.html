@@ -1,0 +1,623 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>初识vue（下） | DL Blog</title><meta name="keywords" content="vue"><meta name="author" content="dleei"><meta name="copyright" content="dleei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="初识vue（下）"><meta name="application-name" content="初识vue（下）"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="初识vue（下）"><meta property="og:url" content="http://example.com/2021/07/17/%E5%88%9D%E8%AF%86vue%EF%BC%88%E4%B8%8B%EF%BC%89/index.html"><meta property="og:site_name" content="DL Blog"><meta property="og:description" content="路由一对一的映射关系 vue中的路由: 路径与组件之间的映射关系 SPASingle Page Application,单页面应用(SPA): 所有功能在 一个html页面 上实现    开发分类 实现方式 页面性能 开发效率 用户体验 学习成本 首屏加载 SEO    单页 一个html页面 按需"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://digitalya.co/blog/wp-content/uploads/2022/08/vue-js-methods-demistified@3x-8-2048x667.png"><meta property="article:author" content="dleei"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://digitalya.co/blog/wp-content/uploads/2022/08/vue-js-methods-demistified@3x-8-2048x667.png"><meta name="description" content="路由一对一的映射关系 vue中的路由: 路径与组件之间的映射关系 SPASingle Page Application,单页面应用(SPA): 所有功能在 一个html页面 上实现    开发分类 实现方式 页面性能 开发效率 用户体验 学习成本 首屏加载 SEO    单页 一个html页面 按需"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2021/07/17/%E5%88%9D%E8%AF%86vue%EF%BC%88%E4%B8%8B%EF%BC%89/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: {"enable":true,"default":"晚上好👋","list":[{"greeting":"晚安😴","startTime":0,"endTime":5},{"greeting":"早上好鸭👋, 祝你一天好心情！","startTime":6,"endTime":9},{"greeting":"上午好👋, 状态很好，鼓励一下～","startTime":10,"endTime":10},{"greeting":"11点多啦, 在坚持一下就吃饭啦～","startTime":11,"endTime":11},{"greeting":"午安👋, 宝贝","startTime":12,"endTime":14},{"greeting":"🌈充实的一天辛苦啦！","startTime":14,"endTime":18},{"greeting":"19点喽, 奖励一顿丰盛的大餐吧🍔。","startTime":19,"endTime":19},{"greeting":"晚上好👋, 在属于自己的时间好好放松😌~","startTime":20,"endTime":24}]},
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: {"skills":["🤖️ 数码科技爱好者"]},
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: dleei","link":"链接: ","source":"来源: DL Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'DL Blog',
+  title: '初识vue（下）',
+  postAI: '',
+  pageFillDescription: '路由, SPA, VueRouter的基本使用步骤, 两个核心步骤, 组件的分类, 声明式导航, router-link 的类名定制, 声明式导航 —跳转传参, 动态路由传参, 动态路由参数可选符, 路由重定向, 路由懒加载, 为什么要使用路由懒加载?, 定义, 编程式导航, ① path 路径跳转 (简易方便), path路径跳转传参, ② name 命名路由跳转 (适合 path 路径长的场景), name属性跳转传参, 组件缓存, 导航守卫（路由守卫）, Vuex, 概念, Vuex使用, Vuex 的核心概念, States, 辅助函数 mapState, mutations, 辅助函数mapMutations, actions, 辅助函数mapActions, getters, modules路由一对一的映射关系中的路由路径与组件之间的映射关系单页面应用所有功能在一个页面上实现开发分类实现方式页面性能开发效率用户体验学习成本首屏加载单页一个页面按需更新性能高高非常好高慢差多页多个页面整页更新性能低中等一般中等快优优点按需更新性能高开发效率高用户体验好缺点学习成本首屏加载慢不利于应用场景系统类网站内部网站文档类网站移动端站点中的路由插件作用修改访问地址栏路径时切换显示匹配的组件的基本使用步骤下载引入安装注册创建路由对象注入将路由对象注入到实例中建立关联两个核心步骤创建需要的组件目录配置路由规则封装抽离路由模块好处拆分模块利于维护表示的绝对路径创建了一个路由对象传入配置对象配置路由规则路由配置规则路径和组件之间的一一对应的映射关系路由规则是多条所以是复数形式一个对象对应一条规则用户访问的地址用户访问对应地址其对应要展示的组件内容对外暴露路由对象配置导航配置路由出口路径匹配的组件显示的位置发现音乐我的音乐朋友路由出口匹配的组件所展示的位置组件的分类页面组件文件夹配合路由页面展示复用组件文件夹封装复用声明式导航导航高亮提供了一个全局组件取代标签能跳转配置属性指定路径必须本质还是标签使用无需为锚点实现在当前页面跳转无需刷新页面能高亮默认就会提供高亮类名可以直接设置高亮样式发现音乐我的音乐朋友路由出口匹配的组件所展示的位置当前选中的的两个类名模糊匹配用的多可以匹配精确匹配仅可以匹配的类名定制声明式导航跳转传参查询参数传参语法格式如下参数名值对应页面组件接收传递过来的值参数名搜索一下热门搜索传参查询字符串传参传递路径参数名参数值参数名参数值去对应的目标组件中接收参数参数名今天下大雨了今天下大雨了小白如何月薪过万小白如何月薪过万动态路由传参去文件下配置动态路由用户点击访问的路径后面添加上参数名就是动态路由的参数配置导航链接传递参数值对应页面组件接收传递过来的值接收参数名动态路由参数可选符表示可选参数传不传参数都可以匹配到这条路由规则路由重定向问题网页打开默认是路径未匹配到组件时会出现空白语法匹配路径重定向到的路径路由懒加载当打包构建应用时包会变得非常大影响页面加载如果我们能把不同路由对应的组件分割成不同的代码块然后当路由被访问的时候才加载对应组件这样就会更加高效为什么要使用路由懒加载为给客户更好的客户体验首屏组件加载速度更快一些解决白屏问题定义懒加载简单来说就是延迟加载或按需加载即在需要的时候的时候进行加载替换成直接作为选项每个路由的选项使用了函数它会返回一个用于异步加载对应的路由组件这样在初始加载页面时只会下载首页所需的组件而不会加载其他路由组件当用户访问页面时才会异步加载并渲染组件编程式导航编程式导航使用代码来实现跳转语法路径跳转简易方便搜索一下热门搜索今天早餐你喝胡辣汤了吗小白如何月薪过万简单写法完整写法路径跳转传参传参动态路由传参命名路由跳转适合路径长的场景搜索一下热门搜索今天早餐你喝胡辣汤了吗小白如何月薪过万路径跳转简单写法完整写法属性跳转语法路由名属性跳转传参传参动态路由传参导航方式和传参方式有点多贴一张思维导图便于理解和查找组件缓存是的内置组件当它包裹动态组件时会缓存不活动的组件实例而不是销毁它们是一个抽象组件它自身不会渲染成一个元素也不会出现在父组件链中此外要求被切换到的组件都有自己的名字不论是通过组件的选项还是局部全局注册优点在组件切换过程中把切换出去的组件保留在内存中防止重复渲染减少加载时间及性能消耗提高用户体验性的三个属性组件名数组只有匹配的组件会被缓存组件名数组任何匹配的组件都不会被缓存二者都可以用逗号分隔的字符串正则表达式或一个数组来表示数字最多可以缓存多少组件实例和只会设置其中一个逗号分隔字符串正则表达式使用数组使用的使用会触发两个生命周期函数当组件被激活使用的时候触发进入这个页面的时候触发激活进入页面当组件不被使用的时候触发离开这个页面的时候触发失活离开页面组件缓存后就不会执行组件的等钩子了所以其提供了组件激活和组件失活钩子帮我们实现业务需求导航守卫路由守卫正如其名提供的导航守卫主要用来通过跳转或取消的方式守卫导航这里有很多方式植入路由导航中全局的单个路由独享的或者组件级的路由守卫有三种全局前置守卫全局后置钩子所谓全局是指路由实例上直接操作的钩子函数他的特点是所有路由配置的组件都会触发直白点就是触发路由就会触发这些钩子函数独享守卫组件内守卫全局前置守卫使用注册一个全局前置守卫返回以取消导航当一个导航触发时全局前置守卫按照创建顺序调用守卫是异步解析执行此时导航在所有守卫完之前一直处于等待中守卫有三个参数往哪里去到哪去的路由信息对象从哪里来从哪来的路由信息对象是否放行可选如果调用就是放行路径拦截到某个路径页面可以返回的值如下取消当前的导航如果浏览器的改变了可能是用户手动或者浏览器后退按钮那么地址会重置到路由对应的地址一个路由地址通过一个路由地址跳转到一个不同的地址就像你调用一样你可以设置诸如或之类的配置当前的导航被中断然后进行一个新的导航就和一样如果遇到了意料之外的情况可能会抛出一个这会取消导航并且调用注册过的回调如果什么都没有或返回则导航是有效的并调用下一个导航守卫全局后置钩子全局后置钩子和守卫不同的是这些钩子不会接受函数也不会改变导航本身它们对于分析更改页面标题声明页面等辅助功能以及许多其他事情都很有用独享守卫单路由独享守卫独享守卫只有前置没有后置组件内守卫你可以为路由组件添加以下配置在渲染该组件的对应路由被验证前调用不能获取组件实例因为当守卫执行时组件实例还没被创建在当前路由改变但是该组件被复用时调用举例来说对于一个带有动态参数的路径在和之间跳转的时候由于会渲染同样的组件因此组件实例会被复用而这个钩子就会在这个情况下被调用因为在这种情况发生的时候组件已经挂载好了导航守卫可以访问组件实例在导航离开渲染该组件的对应路由时调用与一样它可以访问组件实例概念是一个专门为应用程序开发的状态管理模式可以理解为状态就是数据它通过提供一个集中存储管理应用的所有组件的状态并提供了一些操作和方法来修改和访问这些状态通过使用可以更好地组织和管理应用程序的状态提高代码的可维护性和可测试性它适用于中大型的应用程序或需要共享状态的多个组件之间进行通信的场景一般情况下只有多个组件均需要共享的数据才有必要存储在中对于某个组件中的私有数据依旧存储在组件自身的中使用优势主要有三点共同维护一份数据数据集中化管理响应式变化操作简洁提供了一些辅助函数使用安装插件初始化一个空仓库安装与类似是一个独立存在的插件如果脚手架初始化没有选就需要额外安装新建专门存放为了维护项目目录的整洁在目录下新建一个目录其下放置一个文件和类似创建仓库导入导入也是的插件需要一下进行插件的安装初始化创建仓库导出仓库在中导入挂载到实例上此刻起就成功创建了一个空仓库的核心概念的核心概念包括状态变化动作获取器模块状态使用单一状态树来管理应用的状态也就是一个包含了所有数据的对象通过将数据放在一个集中的地方可以方便地跟踪和管理应用的数据提供唯一的公共数据源所有共享的数据都要统一放到中的中存储在对象中可以添加我们要共享的数据创建仓库状态即数据类似于组件中的区别在于是组件自己的数据而中的数据整个项目的组件都能访问到访问数据通过仓库直接访问组件中可以使用获取到中的对象实例可通过属性属性获取的数据在非组件内先引入当前的对象使用属性名来获取或者将属性定义在计算属性中把中数据定义在组件内的计算属性中使用计算属性简化了代码但是每次都需要依次提供计算属性比较繁琐辅助函数帮我们解决了这个问题辅助函数是辅助函数帮助我们把中的数据映射到组件的计算属性中使用步骤导入是中的一个函数采用数组形式引入属性利用展开运算符将导出的状态映射给计算属性变化变化是修改数据的唯一方式它类似于事件每个变化都有一个类型和一个处理函数通过提交一个变化可以触发状态的修改事实上确实是可以直接修改中的数据无需通过并且不会报错但直接修改可能会造成很严重的后果官方也不希望我们这么做如若担心自己可能无意间直接修改了中的数据可以开启严格模式让来监督我们定义访问数据的修改只能通过并且必须是同步的是一个对象对象中存放修改的方法第一个参数是当前的属性也就是里面存储的数据载荷运输参数调用时可以传递参数传递载荷组件中提交其实就是触发对应函数的执行带参数的提交是可以传递参数的参数提供函数提交在调用触发函数执行的时候只能传递两个参数携带的数据如需传递多条数据使用数组或是对象进行传递辅助函数辅助函数和很像里面存的是一个函数它是把位于中的方法在中展开而是数据映射的数据是在计算属性中展开此时就可以直接通过调用中不能写异步代码如果有异步的请求应该放置在中动作类似于变化它可以包含任意异步操作它们是通过提交一个来触发的然后在中可以执行异步操作并通过提交变化来修改状态用于存放数据用于同步更新数据便于监测数据的变化更新视图等方便于调试工具查看变化则负责进行异步操作定义的函数第一个参数是上下文对象参数名可修改可以理解为是一个简化版本的对象它里面也有方法触发的执行第二个参数同一样只能接受一个参数多个参数用对象包裹后传递一秒后给一个数去修改调用来进行异步修改语法参数一参数二要进行修改的参数调用的是函数调用的是函数辅助函数也有辅助函数可以将导入到组件中直接通过方法就可以调用异步修改数值获取器获取器用于从状态中派生出新的状态它可以将现有的状态进行计算和转换并提供一个类似于计算属性的方式来访问这些派生状态例如中定义了数组而在组件中需要显示所有大于的数据正常的方式是需要在组件中进行再一步的处理但是可以帮助我们实现它函数的第一个参数是必须要有返回值原始方式辅助函数与上文类似均是用于用于获取对象属性值的函数简化了代码使用概念模块模块可以将整个状态树分割成更小的模块每个模块都有自己的状态变化动作和获取器这样可以将复杂的应用程序拆分成可维护和可测试的模块通过模块化的方式可以更好地组织和维护大型的状态管理由于使用单一状态树应用的所有状态会集中到一个比较大的对象当应用变得非常复杂时对象就有可能变得相当臃肿于是就有了的模块化模块化是使用的一种重要的模式开发中基本上都是基于模块化思想来开发',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-16 21:55:10',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 8 || hour >= 22
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">DL Blog</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li><li><a class="site-page child faa-parent animated-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-shoe-prints1 faa-tada" style="font-size: 0.9em;"></i><span> 随便逛逛</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/JavaScript/" style="font-size: 1.05rem;">JavaScript<sup>7</sup></a><a href="/tags/ajax/" style="font-size: 1.05rem;">ajax<sup>1</sup></a><a href="/tags/alist/" style="font-size: 1.05rem;">alist<sup>1</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>2</sup></a><a href="/tags/css%E5%B8%83%E5%B1%80/" style="font-size: 1.05rem;">css布局<sup>1</sup></a><a href="/tags/git/" style="font-size: 1.05rem;">git<sup>2</sup></a><a href="/tags/html/" style="font-size: 1.05rem;">html<sup>1</sup></a><a href="/tags/http/" style="font-size: 1.05rem;">http<sup>1</sup></a><a href="/tags/vue/" style="font-size: 1.05rem;">vue<sup>3</sup></a><a href="/tags/web-api/" style="font-size: 1.05rem;">web api<sup>1</sup></a><a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 1.05rem;">日常<sup>1</sup></a><a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 1.05rem;">笔记<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/" style="font-size: 1.05rem;">面试经验<sup>1</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/08/"><span class="card-archive-list-date">八月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/07/"><span class="card-archive-list-date">七月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">10</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/01/"><span class="card-archive-list-date">一月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/07/"><span class="card-archive-list-date">七月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/05/"><span class="card-archive-list-date">五月 2022</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/09/"><span class="card-archive-list-date">九月 2021</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/07/"><span class="card-archive-list-date">七月 2021</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/06/"><span class="card-archive-list-date">六月 2021</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url">前端开发</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/vue/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>vue</span></a></span></div></div><h1 class="post-title" itemprop="name headline">初识vue（下）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2021-07-16T16:00:00.000Z" title="发表于 2021-07-17 00:00:00">2021-07-17</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2023-11-16T13:55:10.150Z" title="更新于 2023-11-16 21:55:10">2023-11-16</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-wordcount"><i class="anzhiyufont anzhiyu-icon-file-word post-meta-icon" title="文章字数"></i><span class="post-meta-label" title="文章字数">字数总计:</span><span class="word-count" title="文章字数">5.7k</span><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-clock post-meta-icon" title="阅读时长"></i><span class="post-meta-label" title="阅读时长">阅读时长:</span><span>21分钟</span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为信阳"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>信阳</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="https://digitalya.co/blog/wp-content/uploads/2022/08/vue-js-methods-demistified@3x-8-2048x667.png"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2021/07/17/%E5%88%9D%E8%AF%86vue%EF%BC%88%E4%B8%8B%EF%BC%89/"><header><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url">前端开发</a><a href="/tags/vue/" tabindex="-1" itemprop="url">vue</a><h1 id="CrawlerTitle" itemprop="name headline">初识vue（下）</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">dleei</span><time itemprop="dateCreated datePublished" datetime="2021-07-16T16:00:00.000Z" title="发表于 2021-07-17 00:00:00">2021-07-17</time><time itemprop="dateCreated datePublished" datetime="2023-11-16T13:55:10.150Z" title="更新于 2023-11-16 21:55:10">2023-11-16</time></header><h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><p>一对一的映射关系</p>
+<p><code>vue</code>中的路由: <strong>路径与组件之间的映射关系</strong></p>
+<h2 id="SPA"><a href="#SPA" class="headerlink" title="SPA"></a>SPA</h2><p><strong>S</strong>ingle <strong>P</strong>age <strong>A</strong>pplication,单页面应用(SPA): 所有功能在 <strong>一个html页面 上实现</strong></p>
+<table>
+<thead>
+<tr>
+<th>开发分类</th>
+<th>实现方式</th>
+<th>页面性能</th>
+<th>开发效率</th>
+<th>用户体验</th>
+<th>学习成本</th>
+<th>首屏加载</th>
+<th>SEO</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单页</td>
+<td>一个html页面</td>
+<td>按需更新,性能高</td>
+<td>高</td>
+<td>非常好</td>
+<td>高</td>
+<td>慢</td>
+<td>差</td>
+</tr>
+<tr>
+<td>多页</td>
+<td>多个html页面</td>
+<td>整页更新,性能低</td>
+<td>中等</td>
+<td>一般</td>
+<td>中等</td>
+<td>快</td>
+<td>优</td>
+</tr>
+</tbody></table>
+<p>优点:按需更新性能高，开发效率高，用户体验好</p>
+<p>缺点:学习成本，首屏加载慢，不利于<code>SEO</code></p>
+<p>应用场景:系统类网站 &#x2F; 内部网站 &#x2F; 文档类网站 &#x2F;移动端站点</p>
+<p><code>vue</code>中的路由插件<code>vuerouter</code></p>
+<p>作用:<strong>修改访问</strong>地址栏路径时,<strong>切换显示</strong>匹配的组件</p>
+<h2 id="VueRouter的基本使用步骤"><a href="#VueRouter的基本使用步骤" class="headerlink" title="VueRouter的基本使用步骤:"></a>VueRouter的基本使用步骤:</h2><p>1.下载</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d8e080d199494cc889cc085705800540~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=471&h=56&s=4240&e=png&b=252526" alt="image-20230831202839981.png"></p>
+<p>2.引入</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/120cbb08cfe8490180f2040ce48c9d50~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1019&h=88&s=8542&e=png&a=1&b=252526" alt="image-20230831202858913.png"></p>
+<p>3.安装注册</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/386ffcbb985148dabc30342cac9f6160~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1019&h=87&s=6304&e=png&a=1&b=252526" alt="image-20230831202910254.png"></p>
+<p>4.创建路由对象</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a64884398daf4a228b68ee16070e9971~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1019&h=88&s=9228&e=png&a=1&b=252526" alt="image-20230831202922922.png"></p>
+<p>5.注入,将路由对象注入到new Vue实例中,建立关联</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ffcba9a5f3fe4829ba30961d5d6dcff8~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1018&h=208&s=17845&e=png&a=1&b=252526" alt="image-20230831202931311.png"></p>
+<h3 id="两个核心步骤"><a href="#两个核心步骤" class="headerlink" title="两个核心步骤"></a>两个核心步骤</h3><ol>
+<li>创建需要的组件(views)目录,配置路由规则</li>
+<li>封装抽离路由模块,好处:拆分模块:利于维护</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @ 表示 src 的绝对路径</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Find</span> <span class="keyword">from</span> <span class="string">&#x27;@/views/Find&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">My</span> <span class="keyword">from</span> <span class="string">&#x27;@/views/My&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Friend</span> <span class="keyword">from</span> <span class="string">&#x27;@/views/Friend&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">VueRouter</span> <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">VueRouter</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建了一个路由对象</span></span><br><span class="line"><span class="comment">// 传入配置对象,配置路由规则</span></span><br><span class="line"><span class="comment">// 路由配置规则: 路径和组件之间的一一对应的映射关系</span></span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> <span class="title class_">VueRouter</span>(&#123;</span><br><span class="line"><span class="comment">// 路由规则是多条,所以 routers 是复数形式</span></span><br><span class="line">  <span class="attr">routes</span>: [</span><br><span class="line">  <span class="comment">// 一个对象对应一条规则</span></span><br><span class="line">  <span class="comment">//  path 用户访问的地址</span></span><br><span class="line">  <span class="comment">//  components 用户访问对应地址其对应要展示的组件内容</span></span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/find&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Find</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/my&#x27;</span>, <span class="attr">component</span>: <span class="title class_">My</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/friend&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Friend</span> &#125;,</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//对外暴露路由对象</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>配置导航,配置路由出口(路径匹配的组件显示的位置)</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;div class=&quot;footer_wrap&quot;&gt;</span><br><span class="line">      &lt;a href=&quot;#/find&quot;&gt;发现音乐&lt;/a&gt;</span><br><span class="line">      &lt;a href=&quot;#/my&quot;&gt;我的音乐&lt;/a&gt;</span><br><span class="line">      &lt;a href=&quot;#/friend&quot;&gt;朋友&lt;/a&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;top&quot;&gt;</span><br><span class="line">      &lt;!-- 路由出口 → 匹配的组件所展示的位置 --&gt;</span><br><span class="line">      &lt;router-view&gt;&lt;/router-view&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="组件的分类"><a href="#组件的分类" class="headerlink" title="组件的分类"></a>组件的分类</h2><p>页面组件 - views文件夹  &#x3D;&gt; 配合路由，页面展示</p>
+<p>复用组件 - components文件夹  &#x3D;&gt;  封装复用</p>
+<h2 id="声明式导航"><a href="#声明式导航" class="headerlink" title="声明式导航"></a>声明式导航</h2><p>导航高亮</p>
+<p>vue-router 提供了一个全局组件 router-link (取代 a 标签)</p>
+<p>① 能跳转，配置 to 属性指定路径(必须) 。本质还是 a 标签 ，使用to 无需 #</p>
+<p>#为锚点实现在当前页面跳转无需刷新页面</p>
+<p>② 能高亮，默认就会提供高亮类名，可以直接设置高亮样式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;div class=&quot;footer_wrap&quot;&gt;</span><br><span class="line">      &lt;router-link to=&quot;/find&quot;&gt;发现音乐&lt;/router-link&gt;</span><br><span class="line">      &lt;router-link to=&quot;/my&quot;&gt;我的音乐&lt;/router-link&gt;</span><br><span class="line">      &lt;router-link to=&quot;/friend&quot;&gt;朋友&lt;/router-link&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;top&quot;&gt;</span><br><span class="line">      &lt;!-- 路由出口 → 匹配的组件所展示的位置 --&gt;</span><br><span class="line">      &lt;router-view&gt;&lt;/router-view&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+
+<p>当前选中的router-link 的两个类名</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cfd138c240c44b76bf98e1a4c7ccc028~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1695&h=256&s=114804&e=png&a=1&b=f9f8f8" alt="image-20230831213601560.png"></p>
+<p>① router-link-active 模糊匹配 (用的多)</p>
+<p>to&#x3D;”&#x2F;my” 可以匹配  &#x2F;my   &#x2F;my&#x2F;a   &#x2F;my&#x2F;b  ….</p>
+<p>② router-link-exact-active 精确匹配</p>
+<p>to&#x3D;”&#x2F;my” 仅可以匹配  &#x2F;my</p>
+<h3 id="router-link-的类名定制"><a href="#router-link-的类名定制" class="headerlink" title="router-link 的类名定制"></a>router-link 的类名定制</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c4aa21cb56b24d1390390dd45305005c~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=734&h=248&s=28558&e=png&a=1&b=252526" alt="image.png"></p>
+<h2 id="声明式导航-—跳转传参"><a href="#声明式导航-—跳转传参" class="headerlink" title="声明式导航 —跳转传参"></a>声明式导航 —跳转传参</h2><ol>
+<li>查询参数传参</li>
+</ol>
+<p>① 语法格式如下</p>
+<p>to&#x3D;”&#x2F;path?参数名&#x3D;值”</p>
+<p>② 对应页面组件接收传递过来的值</p>
+<p>$route.query.参数名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;home&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;logo-box&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;search-box&quot;&gt;</span><br><span class="line">      &lt;input type=&quot;text&quot;&gt;</span><br><span class="line">      &lt;button&gt;搜索一下&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;hot-link&quot;&gt;</span><br><span class="line">      热门搜索：</span><br><span class="line">      &lt;!-- query 传参:查询字符串传参 --&gt;</span><br><span class="line">      &lt;!--1.传递:  路径?参数名1 = 参数值1 &amp; 参数名2 = 参数值2 --&gt;</span><br><span class="line">      &lt;!--2.去对应的目标组件中接收参数 $route.query.参数名 --&gt;</span><br><span class="line">      &lt;router-link to=&quot;/search?keywords=今天下大雨了&quot;&gt;今天下大雨了&lt;/router-link&gt;</span><br><span class="line">      &lt;router-link to=&quot;/search?keywords=小白,如何月薪过万?&quot;&gt;小白,如何月薪过万&lt;/router-link&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="动态路由传参"><a href="#动态路由传参" class="headerlink" title="动态路由传参"></a>动态路由传参</h2><p>①去 router&#x2F;index.js 文件下配置动态路由</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/660cfe363f754ed996c2da0ceeb82b8a~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=653&h=363&s=20813&e=png&a=1&b=252526" alt="image.png"></p>
+<p>用户点击访问的路径后面添加上 <code>:参数名</code> 就是动态路由的参数</p>
+<p>② 配置导航链接</p>
+<p>传递: to&#x3D;”&#x2F;path&#x2F;参数值”</p>
+<p>③ 对应页面组件接收传递过来的值</p>
+<p>接收 : <code>$route.params.参数名</code></p>
+<h2 id="动态路由参数可选符"><a href="#动态路由参数可选符" class="headerlink" title="动态路由参数可选符"></a>动态路由参数可选符</h2><p>? 表示可选参数,传不传参数都可以匹配到这条路由规则</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/01cd71ad87c443d1a0fd326e7506a4d3~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1073&h=328&s=37653&e=png&a=1&b=252526" alt="image.png"></p>
+<h2 id="路由重定向"><a href="#路由重定向" class="headerlink" title="路由重定向"></a>路由重定向</h2><p>**问题：**网页打开， url 默认是 &#x2F; 路径，未匹配到组件时，会出现空白</p>
+<p><strong>语法：</strong> { path: 匹配路径, redirect: 重定向到的路径 },</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const router = new VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123; path: &#x27;/&#x27;, redirect: &#x27;/home&#x27;&#125;,</span><br><span class="line">    &#123; path: &#x27;/home&#x27;, component: Home &#125;,</span><br><span class="line">    &#123; path: &#x27;/search&#x27;, component: Search &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="路由懒加载"><a href="#路由懒加载" class="headerlink" title="路由懒加载"></a>路由懒加载</h2><p>当打包构建应用时，JavaScript 包会变得非常大，影响页面加载。如果我们能把不同路由对应的组件分割成不同的代码块，然后当路由被访问的时候才加载对应组件，这样就会更加高效。</p>
+<h3 id="为什么要使用路由懒加载"><a href="#为什么要使用路由懒加载" class="headerlink" title="为什么要使用路由懒加载?"></a>为什么要使用路由懒加载?</h3><p>为给客户更好的客户体验，首屏组件加载速度更快一些，解决白屏问题。</p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>懒加载简单来说就是延迟加载或按需加载，即在需要的时候的时候进行加载。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// import Home from &#x27;@/views/Home.vue&#x27;</span><br><span class="line">// 替换成：() =&gt; import(&#x27;@/views/Home.vue&#x27;) 直接作为component选项</span><br><span class="line">const routes = [</span><br><span class="line">  &#123;</span><br><span class="line">    path: &#x27;/&#x27;,</span><br><span class="line">    name: &#x27;Home&#x27;,</span><br><span class="line">    component: () =&gt; import(&#x27;@/views/Home.vue&#x27;)</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    path: &#x27;/about&#x27;,</span><br><span class="line">    name: &#x27;About&#x27;,</span><br><span class="line">    component: () =&gt; import(&#x27;@/views/About.vue&#x27;)</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">const router = new VueRouter(&#123;</span><br><span class="line">  routes</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>每个路由的<code>component</code>选项使用了<code>import()</code>函数，它会返回一个 Promise，用于异步加载对应的路由组件。这样，在初始加载页面时，只会下载首页所需的<code>Home.vue</code>组件，而不会加载其他路由组件。当用户访问 About 页面时，才会异步加载并渲染<code>About.vue</code>组件</p>
+<h2 id="编程式导航"><a href="#编程式导航" class="headerlink" title="编程式导航"></a>编程式导航</h2><p>编程式导航:使用js代码来实现跳转</p>
+<p>语法:</p>
+<h3 id="①-path-路径跳转-简易方便"><a href="#①-path-路径跳转-简易方便" class="headerlink" title="① path 路径跳转 (简易方便)"></a>① <code>path</code> 路径跳转 (简易方便)</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0a159e3192484ca9bdb257e9e175618a~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=636&h=248&s=21253&e=png&a=1&b=252526" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;home&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;logo-box&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;search-box&quot;&gt;</span><br><span class="line">      &lt;input type=&quot;text&quot;&gt;</span><br><span class="line">      &lt;button @click=&quot;goSearch&quot;&gt;搜索一下&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;hot-link&quot;&gt;</span><br><span class="line">      热门搜索：</span><br><span class="line">      &lt;router-link to=&quot;/search&quot;&gt;今天早餐你喝胡辣汤了吗?&lt;/router-link&gt;</span><br><span class="line">      &lt;router-link to=&quot;/search&quot;&gt;小白如何月薪过万?&lt;/router-link&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;FindMusic&#x27;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    goSearch() &#123;</span><br><span class="line">      this.$router.push(&#x27;/search&#x27;) //简单写法</span><br><span class="line">      // this.$router.push(&#123; path: &#x27;/search&#x27;&#125;) //完整写法</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="path路径跳转传参"><a href="#path路径跳转传参" class="headerlink" title="path路径跳转传参"></a>path路径跳转传参</h4><ol>
+<li>query传参</li>
+</ol>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4b0bad873ffc414284e9b3a7bc9f6510~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1089&h=370&s=50697&e=png&a=1&b=252526" alt="image.png"><br>2.  动态路由传参</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/dc5b6f52085247f2bb117dc9812ebaac~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=724&h=209&s=27849&e=png&a=1&b=252526" alt="image.png"></p>
+<h3 id="②-name-命名路由跳转-适合-path-路径长的场景"><a href="#②-name-命名路由跳转-适合-path-路径长的场景" class="headerlink" title="② name 命名路由跳转 (适合 path 路径长的场景)"></a>② name 命名路由跳转 (适合 path 路径长的场景)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;home&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;logo-box&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;search-box&quot;&gt;</span><br><span class="line">      &lt;input type=&quot;text&quot;&gt;</span><br><span class="line">      &lt;button @click=&quot;goSearch&quot;&gt;搜索一下&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;hot-link&quot;&gt;</span><br><span class="line">      热门搜索：</span><br><span class="line">      &lt;router-link to=&quot;/search&quot;&gt;今天早餐你喝胡辣汤了吗?&lt;/router-link&gt;</span><br><span class="line">      &lt;router-link to=&quot;/search&quot;&gt;小白如何月薪过万?&lt;/router-link&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;FindMusic&#x27;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">     goSearch() &#123;</span><br><span class="line">    // path 路径跳转</span><br><span class="line">    //   this.$router.push(&#x27;/search&#x27;) //简单写法</span><br><span class="line">    //   // this.$router.push(&#123; path: &#x27;/search&#x27;&#125;) //完整写法</span><br><span class="line"></span><br><span class="line">    // name 属性跳转</span><br><span class="line">    // 语法: this.$router.push( &#123;name : &#x27;路由名&#x27;&#125; )</span><br><span class="line">    this.$router.push( &#123;name : &#x27;search&#x27;&#125; )</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="name属性跳转传参"><a href="#name属性跳转传参" class="headerlink" title="name属性跳转传参"></a>name属性跳转传参</h4><ol>
+<li>query传参</li>
+</ol>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3704fdf883424eb5a57ba536bdd0da31~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1090&h=329&s=35991&e=png&a=1&b=252526" alt="image.png"></p>
+<ol start="2">
+<li>动态路由传参<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3e61721b49184d6da7f1ac5f116fa81b~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=723&h=288&s=25701&e=png&a=1&b=252526" alt="image.png"></li>
+</ol>
+<p>导航方式和传参方式有点多,贴一张思维导图便于理解和查找</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0296cf6d1d4a469fa2077450673b7320~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=3544&h=2246&s=677956&e=png&b=fffdfd" alt="路由导航.png"></p>
+<h2 id="组件缓存"><a href="#组件缓存" class="headerlink" title="组件缓存"></a>组件缓存</h2><p><keep-alive> 是 Vue 的内置组件，当它<strong>包裹动态组件时</strong>，会缓存不活动的组件实例，而不是销毁它们。<keep-alive> 是一个抽象组件，它自身不会渲染成一个 <code>DOM</code> 元素，也不会出现在父组件链中</p>
+<p>此外， <keep-alive> 要求被切换到的组件都有自己的名字，不论是通过组件的 <code>name</code> 选项还是局部 &#x2F; 全局注册</p>
+<p>优点：</p>
+<p>在组件切换过程中把切换出去的组件保留在内存中，防止重复渲染 <code>DOM</code>，减少加载时间及性能消耗，提高用户体验性</p>
+<p><keep-alive>的三个属性：</p>
+<ol>
+<li><p><code>include</code>：组件名数组，只有匹配的组件会被缓存</p>
+</li>
+<li><p><code>exclude</code>：组件名数组，任何匹配的组件都不会被缓存，二者都可以用逗号分隔的字符串、正则表达式或一个数组来表示</p>
+</li>
+<li><p><code>max</code>：数字，最多可以缓存多少组件实例</p>
+</li>
+</ol>
+<p><code>include</code>和<code>exclude</code>只会设置其中一个</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 逗号分隔字符串 --&gt;</span><br><span class="line">&lt;keep-alive include=&quot;a,b&quot;&gt;</span><br><span class="line">  &lt;component :is=&quot;view&quot;&gt;&lt;/component&gt;</span><br><span class="line">&lt;/keep-alive&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 正则表达式 (使用 v-bind) --&gt;</span><br><span class="line">&lt;keep-alive :include=&quot;/a|b/&quot;&gt;</span><br><span class="line">  &lt;component :is=&quot;view&quot;&gt;&lt;/component&gt;</span><br><span class="line">&lt;/keep-alive&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 数组 (使用 v-bind) --&gt;</span><br><span class="line">&lt;keep-alive :include=&quot;[&#x27;a&#x27;, &#x27;b&#x27;]&quot;&gt;</span><br><span class="line">  &lt;component :is=&quot;view&quot;&gt;&lt;/component&gt;</span><br><span class="line">&lt;/keep-alive&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;keep-alive :max=&quot;10&quot;&gt;</span><br><span class="line">  &lt;component :is=&quot;view&quot;&gt;&lt;/component&gt;</span><br><span class="line">&lt;/keep-alive&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><keep-alive>的使用会触发两个生命周期函数</p>
+<p><code>activated</code>：当组件被激活（使用）的时候触发（进入这个页面的时候触发）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">activated () &#123;</span><br><span class="line">  console.log(&#x27;activated 激活 → 进入页面&#x27;);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p><code>deactivated</code>：当组件不被使用的时候触发（离开这个页面的时候触发）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">deactivated() &#123;</span><br><span class="line">  console.log(&#x27;deactivated 失活 → 离开页面&#x27;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>组件缓存后就不会执行组件的 <code>created</code>、<code>mounted</code>、<code>destroyed</code> 等钩子了。所以其提供了 <code>activated</code> (组件激活)和 <code>deactivated</code> (组件失活)钩子，帮我们实现业务需求</p>
+<h2 id="导航守卫（路由守卫）"><a href="#导航守卫（路由守卫）" class="headerlink" title="导航守卫（路由守卫）"></a>导航守卫（路由守卫）</h2><p>正如其名，<code>vue-router</code> 提供的导航守卫主要用来通过跳转或取消的方式守卫导航。这里有很多方式植入路由导航中：全局的，单个路由独享的，或者组件级的</p>
+<p>路由守卫有三种：</p>
+<p>全局前置守卫： <code>beforeEach</code>、全局后置钩子：<code>afterEach</code></p>
+<p>所谓全局是指路由实例上直接操作的钩子函数，他的特点是所有路由配置的组件都会触发，直白点就是触发路由就会触发这些钩子函数</p>
+<p>独享守卫： <code>beforeEnter</code>、 <code>beforeLeave</code><br>组件内守卫：<code>beforeRouteEnter</code>、 <code>beforeRouteUpdate</code>、 <code>beforeRouteLeave</code><br>全局前置守卫</p>
+<p>使用 <code>router.beforeEach</code> 注册一个全局前置守卫：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const router = createRouter(&#123; ... &#125;)</span><br><span class="line"></span><br><span class="line">router.beforeEach((to, from, next) =&gt; &#123;</span><br><span class="line">  // ...</span><br><span class="line">  // 返回 false 以取消导航</span><br><span class="line">  return false</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>当一个导航触发时，全局前置守卫按照创建顺序调用。守卫是异步解析执行，此时导航在所有守卫 <code>resolve</code> 完之前一直处于等待中</p>
+<p>守卫有三个参数：</p>
+<p><code>to</code> 往哪里去， 到哪去的路由信息对象<br><code>from</code> 从哪里来， 从哪来的路由信息对象<br><code>next()</code>是否放行（可选）<br>如果<code>next()</code>调用，就是放行<br><code>next(路径)</code> 拦截到某个路径页面<br>可以返回的值如下:</p>
+<p><code>false</code>: 取消当前的导航。如果浏览器的 URL 改变了(可能是用户手动或者浏览器后退按钮)，那么 URL 地址会重置到 <code>from</code> 路由对应的地址<br>一个路由地址：通过一个路由地址跳转到一个不同的地址，就像你调用 <code>router.push()</code> 一样，你可以设置诸如 <code>replace: true</code> 或 <code>name: &#39;home&#39;</code> 之类的配置。当前的导航被中断，然后进行一个新的导航，就和 <code>from</code> 一样<br>如果遇到了意料之外的情况，可能会抛出一个 <code>Error</code>。这会取消导航并且调用 <code>router.onError()</code> 注册过的回调</p>
+<p>如果什么都没有，<code>undefined</code> 或返回 <code>true</code>，则导航是有效的，并调用下一个导航守卫</p>
+<p>全局后置钩子</p>
+<p>全局后置钩子和守卫不同的是，这些钩子不会接受 next 函数也不会改变导航本身</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">router.afterEach((to, from) =&gt; &#123;</span><br><span class="line">  sendToAnalytics(to.fullPath)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>它们对于分析、更改页面标题、声明页面等辅助功能以及许多其他事情都很有用</p>
+<p>独享守卫</p>
+<p>单路由独享守卫，独享守卫只有前置没有后置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const routes = [</span><br><span class="line">  &#123;</span><br><span class="line">    path: &#x27;/users/:id&#x27;,</span><br><span class="line">    component: UserDetails,</span><br><span class="line">    beforeEnter: (to, from, next) =&gt; &#123;</span><br><span class="line">      // reject the navigation</span><br><span class="line">      return false</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>组件内守卫</p>
+<p>你可以为路由组件添加以下配置：</p>
+<p><code>beforeRouteEnter</code><br><code>beforeRouteUpdate</code><br><code>beforeRouteLeave</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">const UserDetails = &#123;</span><br><span class="line">  template: ...,</span><br><span class="line">  beforeRouteEnter(to, from, next) &#123;</span><br><span class="line">    // 在渲染该组件的对应路由被验证前调用</span><br><span class="line">    // 不能获取组件实例 `this` ！</span><br><span class="line">    // 因为当守卫执行时，组件实例还没被创建！</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeRouteUpdate(to, from, next) &#123;</span><br><span class="line">    // 在当前路由改变，但是该组件被复用时调用</span><br><span class="line">    // 举例来说，对于一个带有动态参数的路径 `/users/:id`，在 `/users/1` 和 `/users/2` 之间跳转的时候，</span><br><span class="line">    // 由于会渲染同样的 `UserDetails` 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。</span><br><span class="line">    // 因为在这种情况发生的时候，组件已经挂载好了，导航守卫可以访问组件实例 `this`</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeRouteLeave(to, from, next) &#123;</span><br><span class="line">    // 在导航离开渲染该组件的对应路由时调用</span><br><span class="line">    // 与 `beforeRouteUpdate` 一样，它可以访问组件实例 `this`</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p><code>Vuex</code> 是一个专门为 <code>Vue.js</code> 应用程序开发的状态管理模式。**(可以理解为状态就是数据)**它通过提供一个集中存储管理应用的所有组件的状态，并提供了一些操作和方法来修改和访问这些状态。通过使用 <code>Vuex</code>，可以更好地组织和管理 <code>Vue.js</code> 应用程序的状态，提高代码的可维护性和可测试性。它适用于中大型的应用程序或需要共享状态的多个组件之间进行通信的场景</p>
+<p>一般情况下，只有多个组件均需要共享的数据 ，才有必要存储在 <code>Vuex</code> 中，对于某个组件中的私有数据，依旧存储在组件自身的 <code>data</code> 中</p>
+<blockquote>
+<p>使用 <code>Vuex</code> 优势主要有三点：<br>共同维护一份数据，数据集中化管理<br>响应式变化<br>操作简洁 (<code>Vuex</code> 提供了一些辅助函数)</p>
+</blockquote>
+<h3 id="Vuex使用"><a href="#Vuex使用" class="headerlink" title="Vuex使用"></a><code>Vuex</code>使用</h3><p>安装 <code>Vuex</code> 插件，初始化一个空仓库</p>
+<p>安装 <code>vuex</code>，与 <code>vue-router</code> 类似，<code>vuex</code> 是一个独立存在的插件，如果脚手架初始化没有选 <code>vuex</code>，就需要额外安装。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add vuex@3</span><br></pre></td></tr></table></figure>
+
+<p>新建 store&#x2F;index.js 专门存放 <code>vuex</code>。为了维护项目目录的整洁，在 <code>src</code> 目录下新建一个 <code>store</code> 目录，其下放置一个<code>index.js</code>文件 (和 router&#x2F;index.js 类似)</p>
+<p>创建仓库 store&#x2F;index.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 导入 vue</span><br><span class="line">import Vue from &#x27;vue&#x27;</span><br><span class="line">// 导入 vuex</span><br><span class="line">import Vuex from &#x27;vuex&#x27;</span><br><span class="line">// vuex 也是 vue 的插件, 需要 use 一下, 进行插件的安装初始化</span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"></span><br><span class="line">// 创建仓库 store</span><br><span class="line">const store = new Vuex.Store()</span><br><span class="line">// 导出仓库</span><br><span class="line">export default store</span><br></pre></td></tr></table></figure>
+
+<p>在 main.js 中导入挂载到 Vue 实例上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#x27;vue&#x27;</span><br><span class="line">import App from &#x27;./App.vue&#x27;</span><br><span class="line">import store from &#x27;./store&#x27;</span><br><span class="line"></span><br><span class="line">Vue.config.productionTip = false</span><br><span class="line"></span><br><span class="line">new Vue(&#123;</span><br><span class="line">  render: h =&gt; h(App),</span><br><span class="line">  store</span><br><span class="line">&#125;).$mount(&#x27;#app&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>此刻起, 就成功创建了一个 空仓库!!</p>
+<h3 id="Vuex-的核心概念"><a href="#Vuex-的核心概念" class="headerlink" title="Vuex 的核心概念"></a><code>Vuex</code> 的核心概念</h3><p><code>Vuex</code> 的核心概念包括：**<code>State</code><strong>（状态）、</strong><code>Mutation</code><strong>（变化）、</strong><code>Action</code><strong>（动作）、</strong><code>Getter</code><strong>（获取器）、</strong><code>Module</code>**（模块）</p>
+<h4 id="States"><a href="#States" class="headerlink" title="States"></a><code>States</code></h4><p><code>State</code>（状态）: <code>Vuex</code> 使用单一状态树来管理应用的状态，也就是一个包含了所有数据的对象。通过将数据放在一个集中的地方，可以方便地跟踪和管理应用的数据</p>
+<p><code>State</code> 提供唯一的公共数据源，所有共享的数据都要统一放到 <code>Store</code> 中的 <code>State</code> 中存储。在 <code>state</code> 对象中可以添加我们要共享的数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 创建仓库 store</span><br><span class="line">const store = new Vuex.Store(&#123;</span><br><span class="line">  // state 状态, 即数据, 类似于 vue 组件中的 data,</span><br><span class="line">  // 区别在于 data 是组件自己的数据, 而 state 中的数据整个 vue 项目的组件都能访问到</span><br><span class="line">  state: &#123;</span><br><span class="line">    count: 10</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>访问<code>State</code>数据</p>
+<p>通过仓库直接访问</p>
+<p>组件中可以使用 <code>this.$store</code> 获取到 <code>vuex</code> 中的 <code>store</code> 对象实例，可通过 <code>state</code> 属性属性获取 <code>count</code>：</p>
+<pre><code>state的数据---&#123;&#123; $store.state.count &#125;&#125;
+</code></pre>
+<p>在非组件内,先引入当前的 <code>store</code> 对象,使用 <code>store.state.count(属性名)</code>来获取</p>
+<p>或者将 <code>state</code> 属性定义在计算属性中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 把 state 中数据，定义在组件内的计算属性中</span><br><span class="line">computed: &#123;</span><br><span class="line">  count () &#123;</span><br><span class="line">    return this.$store.state.count</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用计算属性简化了代码，但是每次都需要依次提供计算属性，比较繁琐，<code>vuex</code> 辅助函数帮我们解决了这个问题</p>
+<h5 id="辅助函数-mapState"><a href="#辅助函数-mapState" class="headerlink" title="辅助函数 mapState"></a>辅助函数 <code>mapState</code></h5><p><code>mapState</code> 是辅助函数，帮助我们把 <code>store</code> 中的数据映射到组件的计算属性中<br>使用步骤：</p>
+<p>导入 <code>mapState</code> ( <code>mapState</code> 是 <code>vuex</code> 中的一个函数 )</p>
+<pre><code>import &#123; mapState &#125; from &#39;vuex&#39;
+</code></pre>
+<p>采用数组形式引入 <code>state</code> 属性</p>
+<pre><code>mapState([&#39;count&#39;]) 
+</code></pre>
+<p>利用展开运算符将导出的状态映射给计算属性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">  ...mapState([&#x27;count&#x27;])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="mutations"><a href="#mutations" class="headerlink" title="mutations"></a>mutations</h4><p><code>Mutation</code>（变化）: 变化是修改数据的唯一方式。它类似于事件，每个变化都有一个类型和一个处理函数。通过提交一个变化，可以触发状态的修改</p>
+<p>事实上确实是可以直接修改 <code>store</code> 中的数据，无需通过 <code>mutation</code>，并且不会报错。但直接修改可能会造成很严重的后果， <code>Vue</code> 官方也不希望我们这么做，如若担心自己可能无意间直接修改了 <code>store</code> 中的数据，可以开启严格模式 <code>strict: true</code> ，让 <code>Vue</code> 来监督我们：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const store  = new Vuex.Store(&#123;</span><br><span class="line">  strict: true</span><br><span class="line">  state: &#123;</span><br><span class="line">    count: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  // 定义mutations</span><br><span class="line">  mutations: &#123;</span><br><span class="line">  &#125;</span><br><span class="line">  // ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>访问<code>mutations</code></p>
+<p><code>state</code> 数据的修改只能通过 mutations，并且 mutations 必须是同步的。mutations 是一个对象，对象中存放修改 state 的方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mutations: &#123;</span><br><span class="line">  // 第一个参数是当前 store 的 state 属性,也就是 vuex 里面存储的数据</span><br><span class="line">  // payload载荷 运输参数，调用mutaiions时，可以传递参数，传递载荷</span><br><span class="line">  addCount (state) &#123;</span><br><span class="line">    state.count += 1</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>组件中提交 mutations（其实就是触发对应函数的执行）</p>
+<pre><code>this.$store.commit(&#39;addCount&#39;)
+</code></pre>
+<p>带参数的mutations</p>
+<p>提交 mutations 是可以传递参数的 this.$store.commit(states, 参数)</p>
+<p>提供 mutations 函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mutations: &#123;</span><br><span class="line">  ...</span><br><span class="line">  addCount (state, count) &#123;</span><br><span class="line">    state.count = count</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>提交 mutations</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">handle ( ) &#123;</span><br><span class="line">  this.$store.commit(&#x27;addCount&#x27;, 10)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在调用触发函数执行的时候只能传递两个参数,1. states, 2.携带的数据 ,如需传递多条数据使用数组或是对象进行传递<code>this.$store.commit(&#39;addCount&#39;,&#123;***&#125;/[***])</code><br>辅助函数</p>
+<h5 id="辅助函数mapMutations"><a href="#辅助函数mapMutations" class="headerlink" title="辅助函数mapMutations"></a>辅助函数mapMutations</h5><p>mapMutations 和 mapState 很像</p>
+<p>mutations 里面存的是一个函数,它是把位于 mutations 中的方法在methods中展开</p>
+<p>而 mapState 是数据,映射的数据是在计算属性computed中展开</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import  &#123; mapMutations &#125; from &#x27;vuex&#x27;</span><br><span class="line">methods: &#123;</span><br><span class="line">    ...mapMutations([&#x27;addCount&#x27;])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时，就可以直接通过 this.addCount()调用</p>
+<pre><code>&lt;button @click=&quot;addCount&quot;&gt;+1&lt;/button&gt;
+</code></pre>
+<p>mutations 中不能写异步代码，如果有异步的 ajax 请求，应该放置在 actions 中</p>
+<h4 id="actions"><a href="#actions" class="headerlink" title="actions"></a>actions</h4><p>Action（动作）: action 类似于变化，它可以包含任意异步操作。它们是通过提交一个 action 来触发的，然后在 actions 中可以执行异步操作并通过提交变化来修改状态</p>
+<p>state 用于存放数据，mutations 用于同步更新数据（便于监测数据的变化，更新视图等，方便于调试工具查看变化），actions 则负责进行异步操作</p>
+<p>定义actions</p>
+<p>actions 的函数第一个参数是 context (上下文对象，参数名可修改)，可以理解为是一个简化版本的 store 对象，它里面也有commit方法,触发mutation的执行,第二个参数同 mutations 一样，只能接受一个参数，多个参数用对象包裹后传递</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">actions: &#123;</span><br><span class="line">  setAsyncCount (context, num) &#123;</span><br><span class="line">    // 一秒后, 给一个数, 去修改 num</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      context.commit(&#x27;changeCount&#x27;, num)</span><br><span class="line">    &#125;, 1000)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>调用 actions 来进行异步修改 count</p>
+<p>语法: this.$store.dispatch(参数一:context ,参数二:要进行修改的参数)</p>
+<p>commit调用的是mutation函数</p>
+<p>dispatch调用的是actions函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setAsyncCount () &#123;</span><br><span class="line">  this.$store.dispatch(&#x27;setAsyncCount&#x27;, 666)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="辅助函数mapActions"><a href="#辅助函数mapActions" class="headerlink" title="辅助函数mapActions"></a>辅助函数mapActions</h5><p>actions 也有辅助函数（mapActions），可以将 actions 导入到组件中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import &#123; mapActions &#125; from &#x27;vuex&#x27;</span><br><span class="line">methods: &#123;</span><br><span class="line">    ...mapActions([&#x27;setAsyncCount&#x27;])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接通过 this.方法就可以调用</p>
+<pre><code>&lt;button @click=&quot;setAsyncCount(200)&quot;&gt;异步修改数值&lt;/button&gt;
+</code></pre>
+<h4 id="getters"><a href="#getters" class="headerlink" title="getters"></a>getters</h4><p>Getter（获取器）: 获取器用于从状态中派生出新的状态。它可以将现有的状态进行计算和转换，并提供一个类似于计算属性的方式来访问这些派生状态</p>
+<p>例如，state 中定义了 list 数组，而在组件中，需要显示所有大于5的数据，正常的方式，是需要 list 在组件中进行再一步的处理，但是 getters 可以帮助我们实现它：</p>
+<p>…</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">state: &#123;</span><br><span class="line">    list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</span><br><span class="line">&#125;</span><br><span class="line">getters: &#123;</span><br><span class="line">  // getters函数的第一个参数是 state</span><br><span class="line">  // 必须要有返回值</span><br><span class="line">   filterList:  state =&gt;  state.list.filter(item =&gt; item &gt; 5)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>原始方式$store</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;&#123;&#123; $store.getters.filterList &#125;&#125;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">Getter 辅助函数与上文类似，均是用于用于获取对象属性值的函数，简化了代码</span><br><span class="line"></span><br><span class="line">mapGetters</span><br><span class="line"></span><br><span class="line">computed: &#123;</span><br><span class="line">    ...mapGetters([&#x27;filterList&#x27;])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用</p>
+<pre><code>&#123;&#123; filterList &#125;&#125;
+</code></pre>
+<h2 id="modules"><a href="#modules" class="headerlink" title="modules"></a>modules</h2><p>概念</p>
+<p>Module（模块）: 模块可以将整个状态树分割成更小的模块，每个模块都有自己的状态(state)、变化(mutation)、动作(action) 和获取器(getter)。这样可以将复杂的应用程序拆分成可维护和可测试的模块。通过模块化的方式，可以更好地组织和维护大型的状态管理</p>
+<p>由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿，于是就有了 Vuex 的模块化。模块化是使用 Vuex 的一种重要的模式，开发中基本上都是基于模块化思想来开发</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/hehuan2023/pic/typora/rabbit.png" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/hehuan2023/pic/typora/rabbit.png" title="头像" alt="头像"></a><div class="post-copyright__author_name">dleei</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2021/07/17/%E5%88%9D%E8%AF%86vue%EF%BC%88%E4%B8%8B%EF%BC%89/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2021/07/17/%E5%88%9D%E8%AF%86vue%EF%BC%88%E4%B8%8B%EF%BC%89/')">初识vue（下）</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://example.com/2021/07/17/%E5%88%9D%E8%AF%86vue%EF%BC%88%E4%B8%8B%EF%BC%89/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=初识vue（下）&amp;url=http://example.com/2021/07/17/%E5%88%9D%E8%AF%86vue%EF%BC%88%E4%B8%8B%EF%BC%89/&amp;pic=https://digitalya.co/blog/wp-content/uploads/2022/08/vue-js-methods-demistified@3x-8-2048x667.png" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>许可协议,转载请注明来自<a target="_blank" rel="noopener" href="https://github.com/dleei">dleei</a></span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/vue/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>vue<span class="tagsPageCount">3</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/hehuan2023/pic/typora/202308092229349.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/07/10/%E5%88%9D%E8%AF%86vue%EF%BC%88%E4%B8%AD%EF%BC%89/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://digitalya.co/blog/wp-content/uploads/2022/08/vue-js-methods-demistified@3x-8-2048x667.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">初识vue（中）</div></div></a></div><div class="next-post pull-right"><a href="/2021/07/27/%E5%85%A8%E7%BD%91%E6%9C%80%E9%80%9A%E4%BF%97%E6%98%93%E6%87%82%E7%9A%84%E8%AE%B2%E8%A7%A3%20git%20rebase%E5%92%8Cgit%20merge%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E5%8C%BA%E5%88%AB/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f5563f5e3cf24247a9d3ef784dad5718~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">全网最通俗易懂的讲解git rebase和git merge的原理和区别</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2021/06/25/%E5%88%9D%E5%A7%8Bvue%EF%BC%88%E4%B8%8A%EF%BC%89/" title="初始vue（上）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://digitalya.co/blog/wp-content/uploads/2022/08/vue-js-methods-demistified@3x-8-2048x667.png" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2021-06-25</div><div class="title">初始vue（上）</div></div></a></div><div><a href="/2021/07/10/%E5%88%9D%E8%AF%86vue%EF%BC%88%E4%B8%AD%EF%BC%89/" title="初识vue（中）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://digitalya.co/blog/wp-content/uploads/2022/08/vue-js-methods-demistified@3x-8-2048x667.png" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2021-07-10</div><div class="title">初识vue（中）</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/hehuan2023/pic/typora/rabbit.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-status"><img class="g-status" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/08/24/64e6ce9c507bb.png" ait="status"/></div></div><div class="author-info__description"></div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/"><h1 class="author-info__name">dleei</h1><div class="author-info__desc"></div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/dleei" target="_blank" title="Github"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-github"></use></svg></a><a class="social-icon faa-parent animated-hover" href="https://space.bilibili.com/320440274" target="_blank" title="BiliBili"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-bilibili"></use></svg></a><a class="social-icon faa-parent animated-hover" href="https://juejin.cn/user/2764604887281447" target="_blank" title="掘金"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-juejin"></use></svg></a></div></div></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bullhorn anzhiyu-shake"></i><span>公告</span></div><div class="announcement_content">欢迎访问代磊的个人博客鸭~</div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1"><span class="toc-number">1.</span> <span class="toc-text">路由</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SPA"><span class="toc-number">2.</span> <span class="toc-text">SPA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VueRouter%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="toc-number">3.</span> <span class="toc-text">VueRouter的基本使用步骤:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E4%B8%AA%E6%A0%B8%E5%BF%83%E6%AD%A5%E9%AA%A4"><span class="toc-number">3.1.</span> <span class="toc-text">两个核心步骤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">4.</span> <span class="toc-text">组件的分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E%E5%BC%8F%E5%AF%BC%E8%88%AA"><span class="toc-number">5.</span> <span class="toc-text">声明式导航</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#router-link-%E7%9A%84%E7%B1%BB%E5%90%8D%E5%AE%9A%E5%88%B6"><span class="toc-number">5.1.</span> <span class="toc-text">router-link 的类名定制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E%E5%BC%8F%E5%AF%BC%E8%88%AA-%E2%80%94%E8%B7%B3%E8%BD%AC%E4%BC%A0%E5%8F%82"><span class="toc-number">6.</span> <span class="toc-text">声明式导航 —跳转传参</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1%E4%BC%A0%E5%8F%82"><span class="toc-number">7.</span> <span class="toc-text">动态路由传参</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1%E5%8F%82%E6%95%B0%E5%8F%AF%E9%80%89%E7%AC%A6"><span class="toc-number">8.</span> <span class="toc-text">动态路由参数可选符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">9.</span> <span class="toc-text">路由重定向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E6%87%92%E5%8A%A0%E8%BD%BD"><span class="toc-number">10.</span> <span class="toc-text">路由懒加载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E8%B7%AF%E7%94%B1%E6%87%92%E5%8A%A0%E8%BD%BD"><span class="toc-number">10.1.</span> <span class="toc-text">为什么要使用路由懒加载?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">10.2.</span> <span class="toc-text">定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A8%8B%E5%BC%8F%E5%AF%BC%E8%88%AA"><span class="toc-number">11.</span> <span class="toc-text">编程式导航</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%91%A0-path-%E8%B7%AF%E5%BE%84%E8%B7%B3%E8%BD%AC-%E7%AE%80%E6%98%93%E6%96%B9%E4%BE%BF"><span class="toc-number">11.1.</span> <span class="toc-text">① path 路径跳转 (简易方便)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#path%E8%B7%AF%E5%BE%84%E8%B7%B3%E8%BD%AC%E4%BC%A0%E5%8F%82"><span class="toc-number">11.1.1.</span> <span class="toc-text">path路径跳转传参</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%91%A1-name-%E5%91%BD%E5%90%8D%E8%B7%AF%E7%94%B1%E8%B7%B3%E8%BD%AC-%E9%80%82%E5%90%88-path-%E8%B7%AF%E5%BE%84%E9%95%BF%E7%9A%84%E5%9C%BA%E6%99%AF"><span class="toc-number">11.2.</span> <span class="toc-text">② name 命名路由跳转 (适合 path 路径长的场景)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#name%E5%B1%9E%E6%80%A7%E8%B7%B3%E8%BD%AC%E4%BC%A0%E5%8F%82"><span class="toc-number">11.2.1.</span> <span class="toc-text">name属性跳转传参</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E7%BC%93%E5%AD%98"><span class="toc-number">12.</span> <span class="toc-text">组件缓存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E8%88%AA%E5%AE%88%E5%8D%AB%EF%BC%88%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB%EF%BC%89"><span class="toc-number">13.</span> <span class="toc-text">导航守卫（路由守卫）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vuex"><span class="toc-number">14.</span> <span class="toc-text">Vuex</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">14.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vuex%E4%BD%BF%E7%94%A8"><span class="toc-number">14.2.</span> <span class="toc-text">Vuex使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vuex-%E7%9A%84%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-number">14.3.</span> <span class="toc-text">Vuex 的核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#States"><span class="toc-number">14.3.1.</span> <span class="toc-text">States</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E5%87%BD%E6%95%B0-mapState"><span class="toc-number">14.3.1.1.</span> <span class="toc-text">辅助函数 mapState</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mutations"><span class="toc-number">14.3.2.</span> <span class="toc-text">mutations</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E5%87%BD%E6%95%B0mapMutations"><span class="toc-number">14.3.2.1.</span> <span class="toc-text">辅助函数mapMutations</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#actions"><span class="toc-number">14.3.3.</span> <span class="toc-text">actions</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E5%87%BD%E6%95%B0mapActions"><span class="toc-number">14.3.3.1.</span> <span class="toc-text">辅助函数mapActions</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getters"><span class="toc-number">14.3.4.</span> <span class="toc-text">getters</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#modules"><span class="toc-number">15.</span> <span class="toc-text">modules</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/08/09/javasript%E9%87%8C%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" title="面试高频的事件循环"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/hehuan2023/pic/typora/202308092229349.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="面试高频的事件循环"/></a><div class="content"><a class="title" href="/2023/08/09/javasript%E9%87%8C%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" title="面试高频的事件循环">面试高频的事件循环</a><time datetime="2023-08-08T16:00:00.000Z" title="发表于 2023-08-09 00:00:00">2023-08-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/07/ajax/" title="ajax入门"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/hehuan2023/pic/typora/202308072317029.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ajax入门"/></a><div class="content"><a class="title" href="/2023/08/07/ajax/" title="ajax入门">ajax入门</a><time datetime="2023-08-06T16:00:00.000Z" title="发表于 2023-08-07 00:00:00">2023-08-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/02/js%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" title="js里的垃圾回收机制"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/hehuan2023/pic/typora/202308022317555.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="js里的垃圾回收机制"/></a><div class="content"><a class="title" href="/2023/08/02/js%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" title="js里的垃圾回收机制">js里的垃圾回收机制</a><time datetime="2023-08-01T16:00:00.000Z" title="发表于 2023-08-02 00:00:00">2023-08-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/29/JavaScript%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/" title="JavaScript对象数组常用方法总结"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/hehuan2023/pic/typora/202307292051768.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JavaScript对象数组常用方法总结"/></a><div class="content"><a class="title" href="/2023/07/29/JavaScript%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/" title="JavaScript对象数组常用方法总结">JavaScript对象数组常用方法总结</a><time datetime="2023-07-28T16:00:00.000Z" title="发表于 2023-07-29 00:00:00">2023-07-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/27/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87%E7%9A%84%2010%20%E4%B8%AA%E6%96%B9%E6%B3%95/" title="程序员提高效率的 10 个方法"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://img02.anheyu.com/adminuploads/1/2022/09/05/6315e14071f71.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="程序员提高效率的 10 个方法"/></a><div class="content"><a class="title" href="/2023/07/27/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87%E7%9A%84%2010%20%E4%B8%AA%E6%96%B9%E6%B3%95/" title="程序员提高效率的 10 个方法">程序员提高效率的 10 个方法</a><time datetime="2023-07-26T16:00:00.000Z" title="发表于 2023-07-27 00:00:00">2023-07-27</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div id="workboard"><div id="runtimeTextTip"></div></div></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2024 By <a class="footer-bar-link" href="/" title="dleei" target="_blank">dleei</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">4</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li><li><a class="site-page child faa-parent animated-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-shoe-prints1 faa-tada" style="font-size: 0.9em;"></i><span> 随便逛逛</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/JavaScript/" style="font-size: 0.88rem;">JavaScript<sup>7</sup></a><a href="/tags/ajax/" style="font-size: 0.88rem;">ajax<sup>1</sup></a><a href="/tags/alist/" style="font-size: 0.88rem;">alist<sup>1</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>2</sup></a><a href="/tags/css%E5%B8%83%E5%B1%80/" style="font-size: 0.88rem;">css布局<sup>1</sup></a><a href="/tags/git/" style="font-size: 0.88rem;">git<sup>2</sup></a><a href="/tags/html/" style="font-size: 0.88rem;">html<sup>1</sup></a><a href="/tags/http/" style="font-size: 0.88rem;">http<sup>1</sup></a><a href="/tags/vue/" style="font-size: 0.88rem;">vue<sup>3</sup></a><a href="/tags/web-api/" style="font-size: 0.88rem;">web api<sup>1</sup></a><a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 0.88rem;">日常<sup>1</sup></a><a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 0.88rem;">笔记<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/" style="font-size: 0.88rem;">面试经验<sup>1</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/2962056580&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.4/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script async src="/anzhiyu/random.js"></script><script async="async">(function () {
+  var grt = new Date("04/01/2021 00:00:00"); //设置网站上线时间
+  var now = new Date();
+  var dnum;
+  var hnum;
+  var mnum;
+  var snum;
+  var nowHour;
+
+  // 计算并更新天数、小时数、分钟数和秒数
+  function updateTime() {
+    now = new Date(); // 更新 now 的值
+    nowHour = now.getHours(); // 更新 nowHour 的值
+    var days = (now - grt) / 1000 / 60 / 60 / 24;
+    dnum = Math.floor(days);
+    var hours = (now - grt) / 1000 / 60 / 60 - 24 * dnum;
+    hnum = Math.floor(hours);
+    if (String(hnum).length == 1) {
+      hnum = "0" + hnum;
+    }
+    var minutes = (now - grt) / 1000 / 60 - 24 * 60 * dnum - 60 * hnum;
+    mnum = Math.floor(minutes);
+    if (String(mnum).length == 1) {
+      mnum = "0" + mnum;
+    }
+    var seconds = (now - grt) / 1000 - 24 * 60 * 60 * dnum - 60 * 60 * hnum - 60 * mnum;
+    snum = Math.round(seconds);
+    if (String(snum).length == 1) {
+      snum = "0" + snum;
+    }
+  }
+
+  // 更新网页中显示的网站运行时间
+  function updateHtml() {
+    const footer = document.getElementById("footer");
+    if (!footer) return
+    let currentTimeHtml = "";
+    if (nowHour < 18 && nowHour >= 9) {
+      // 如果是上班时间，默认就是"安知鱼-上班摸鱼中.svg"图片，不需要更改
+      currentTimeHtml = `本站居然运行了 ${dnum} 天<span id='runtime'> ${hnum} 小时 ${mnum} 分 ${snum} 秒 </span><i class='anzhiyufont anzhiyu-icon-heartbeat' style='color:red'></i>`;
+    } else {
+      // 如果是下班时间，插入"安知鱼-下班啦.svg"图片
+      let img = document.querySelector("#workboard .workSituationImg");
+      if (img != null) {
+        img.src = "";
+        img.title = "";
+        img.alt = "";
+      }
+
+      currentTimeHtml = `本站居然运行了 ${dnum} 天<span id='runtime'> ${hnum} 小时 ${mnum} 分 ${snum} 秒 </span><i class='anzhiyufont anzhiyu-icon-heartbeat' style='color:red'></i>`;
+    }
+
+    if (document.getElementById("runtimeTextTip")) {
+      document.getElementById("runtimeTextTip").innerHTML = currentTimeHtml;
+    }
+  }
+
+  setInterval(() => {
+    updateTime();
+    updateHtml();
+  }, 1000);
+})();</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script async data-pjax src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.1/bubble/bubble.js"></script><script>var visitorMail = "visitor@anheyu.com";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><script async src="https://at.alicdn.com/t/c/font_4134468_iy1cksqbqs.js?spm=a313x.manage_type_myprojects.i1.10.71fe3a81a8VKf6&amp;file=font_4134468_iy1cksqbqs.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
