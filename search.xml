@@ -279,31 +279,6 @@
     
     
     <entry>
-      <title>Typora+Picgo+Github搭建本地图床</title>
-      <link href="/2023/07/01/typora%E7%AC%94%E8%AE%B0%E6%90%AD%E9%85%8D%E5%9B%BE%E5%BA%8A/"/>
-      <url>/2023/07/01/typora%E7%AC%94%E8%AE%B0%E6%90%AD%E9%85%8D%E5%9B%BE%E5%BA%8A/</url>
-      
-        <content type="html"><![CDATA[<p>typora笔记软件在插入图片时,需要图片在本地,否则图片就无法显示,有一些麻烦,但是如果搭配上图床,把图片上传到云端,就不会有这种烦恼了,只要是在有网络的情况下,就能正常显示<img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/270fae821b5846389d278f4d4866fe8a~tplv-k3u1fbpfcp-watermark.image" alt="阿鲁150.gif"></p><p>把文件发送给别人也能够正常显示<img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6995eace982d4202a21cef43928d987f~tplv-k3u1fbpfcp-watermark.image" alt="阿鲁39.gif"></p><p><a href="https://typoraio.cn/">typora官方中文地址:</a>(typora需要收费,具体修改方法请自行查询)</p><p><a href="https://github.com/Molunerfinn/Pic">picgo下载地址</a></p><h3 id="picgo下载-安装"><a href="#picgo下载-安装" class="headerlink" title="picgo下载,安装"></a>picgo下载,安装</h3><p>随意进入一个可以顺利下载的地址(以github为例)</p><p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/435107888e6c4949becb778604caedbb~tplv-k3u1fbpfcp-watermark.image" alt="11.png"></p><p>进入assets资源区</p><p>选择与自己电脑系统相对应的安装文件</p><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9009e32efccd45e080a2d5c742d9efcf~tplv-k3u1fbpfcp-watermark.image" alt="12.png"></p><p>安装完成<br><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6e3024982fbd4d8f9211c3bde67f49a7~tplv-k3u1fbpfcp-watermark.image" alt="aru-1x-1\_142.png"></p><p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/522b2535c74c43dbbf49218eb01240b3~tplv-k3u1fbpfcp-watermark.image" alt="13.png"><br>picgo就暂时结束了,下面我们选择github作为我们的图床,因为github能上传超过1m的图片,而gitee只能上传小于1m的图片,上传超过1m的图片需要压缩,而且需要安装node.js,非常的不人性化</p><p>关于github的注册这里就不再过多的赘述</p><h3 id="Github配置"><a href="#Github配置" class="headerlink" title="Github配置"></a>Github配置</h3><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9fa2c55408b247caa1a2c2a2ee1d6340~tplv-k3u1fbpfcp-watermark.image" alt="245.GIF"></p><p>1.创建一个新仓库<br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/75966f80cf684e64b065822a2b77469e~tplv-k3u1fbpfcp-watermark.image" alt="84a47a6287fc47798503d0952b040c3a.png"><br><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/784b3e4d8582464798050851d8e2082c~tplv-k3u1fbpfcp-watermark.image" alt="15.png"><br>    2.填写仓库名称和描述 ,必须选择public公开,否则存储的图片不能正常访问<br>    <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/091d4c47a167419a82613b622f01c162~tplv-k3u1fbpfcp-watermark.image" alt="16.png"><br>    3.进入设置进行配置<br>    <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1775c74abbe14414a781dac768d20e45~tplv-k3u1fbpfcp-watermark.image" alt="20.png"></p><p>   <img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/39d5c9f3ee3b472e959a6ae51450c556~tplv-k3u1fbpfcp-watermark.image" alt="21.png"></p><p>   <img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b46e4d888fdd4a78b88d5cb1b92c81e3~tplv-k3u1fbpfcp-watermark.image" alt="22.png"></p><p>   <img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c4dc11ca49db4dceb907239ad4cbbdcb~tplv-k3u1fbpfcp-watermark.image" alt="23.png"></p><p>   <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9b4a49192f0547938063c3ef3b15e7ac~tplv-k3u1fbpfcp-watermark.image" alt="24.png"></p><p>   最后会生成一个token令牌,因为我已经有了一个了,这里就不再演示</p><p>   <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/40c8f185a27d4a90aeb89d044f4ffe34~tplv-k3u1fbpfcp-watermark.image" alt="122.png"></p><p>   <strong>注意:生成的token令牌只会显示一次,请用记事本保存起来以免忘记</strong></p><p>   至此Github的配置已经完成</p><h3 id="Typora配置"><a href="#Typora配置" class="headerlink" title="Typora配置"></a>Typora配置</h3><p>   <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/90a7e7f6219a4231bbac1f247590c0d0~tplv-k3u1fbpfcp-watermark.image" alt="26.png"></p><p>   上面我们只是下载了picgo还没有进行配置最后我们配置一下picgo</p><p>   <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8a85ec240b2f4ae382853a2b681b06ea~tplv-k3u1fbpfcp-watermark.image" alt="27.png"><br>    <strong>仓库名</strong><br>    <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6c0d9919f7bc455cbdcdd7f49c6e9138~tplv-k3u1fbpfcp-watermark.image" alt="28.png"><br>    <strong>分支</strong></p><p>  默认master.从2020.10.01开始,默认分支变更为,main</p><p>   <strong>token</strong></p><p>   前面你生成的token令牌</p><p>   自定义域名</p><p><code>https://cdn.jsdelivr.net/gh/自己的github个人地址/仓库</code></p><p>   至此,typora+Github+picgo搭建图床已经全部完成</p><p>   我们可以回到typora验证一下是不是真的搭建成功了</p><p>   <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c6086c01d0bd46aea0c49a88003d5587~tplv-k3u1fbpfcp-watermark.image" alt="29.png"><br>    typora显示上传成功,并且在picgo也成功看到了图片,这就表明我们已经成功搭建完成了<img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/20cb0df5f8684deb8454e4ffd6803e7b~tplv-k3u1fbpfcp-watermark.image" alt="阿鲁91.gif"></p><p>   <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/64776c2096c04a3881a76b977c322048~tplv-k3u1fbpfcp-watermark.image" alt="30.png"></p><blockquote><p><strong>补充:typora的图片插入默认是居中显示的</strong></p><p><strong>非常的不美观,这个也非常的简单进入对应的主题文件夹的css文件中</strong></p><p><strong>将图片的排列方式更改为 text-align:left; 靠左排列,再重启typora即可</strong></p></blockquote><p>   <img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cc41d01344394d21b3534dc0ef265ff4~tplv-k3u1fbpfcp-watermark.image" alt="246.PNG"><br>    分享到此结束<br>    <img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/27bb7664d1414463a4ab9ce62388acc7~tplv-k3u1fbpfcp-watermark.image" alt="阿鲁49.gif"></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 奇技淫巧 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 笔记 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>js基础入门</title>
       <link href="/2023/07/01/js%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/"/>
       <url>/2023/07/01/js%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/</url>
@@ -321,6 +296,31 @@
         <tags>
             
             <tag> JavaScript </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Typora+Picgo+Github搭建本地图床</title>
+      <link href="/2023/07/01/typora%E7%AC%94%E8%AE%B0%E6%90%AD%E9%85%8D%E5%9B%BE%E5%BA%8A/"/>
+      <url>/2023/07/01/typora%E7%AC%94%E8%AE%B0%E6%90%AD%E9%85%8D%E5%9B%BE%E5%BA%8A/</url>
+      
+        <content type="html"><![CDATA[<p>typora笔记软件在插入图片时,需要图片在本地,否则图片就无法显示,有一些麻烦,但是如果搭配上图床,把图片上传到云端,就不会有这种烦恼了,只要是在有网络的情况下,就能正常显示<img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/270fae821b5846389d278f4d4866fe8a~tplv-k3u1fbpfcp-watermark.image" alt="阿鲁150.gif"></p><p>把文件发送给别人也能够正常显示<img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6995eace982d4202a21cef43928d987f~tplv-k3u1fbpfcp-watermark.image" alt="阿鲁39.gif"></p><p><a href="https://typoraio.cn/">typora官方中文地址:</a>(typora需要收费,具体修改方法请自行查询)</p><p><a href="https://github.com/Molunerfinn/Pic">picgo下载地址</a></p><h3 id="picgo下载-安装"><a href="#picgo下载-安装" class="headerlink" title="picgo下载,安装"></a>picgo下载,安装</h3><p>随意进入一个可以顺利下载的地址(以github为例)</p><p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/435107888e6c4949becb778604caedbb~tplv-k3u1fbpfcp-watermark.image" alt="11.png"></p><p>进入assets资源区</p><p>选择与自己电脑系统相对应的安装文件</p><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9009e32efccd45e080a2d5c742d9efcf~tplv-k3u1fbpfcp-watermark.image" alt="12.png"></p><p>安装完成<br><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6e3024982fbd4d8f9211c3bde67f49a7~tplv-k3u1fbpfcp-watermark.image" alt="aru-1x-1\_142.png"></p><p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/522b2535c74c43dbbf49218eb01240b3~tplv-k3u1fbpfcp-watermark.image" alt="13.png"><br>picgo就暂时结束了,下面我们选择github作为我们的图床,因为github能上传超过1m的图片,而gitee只能上传小于1m的图片,上传超过1m的图片需要压缩,而且需要安装node.js,非常的不人性化</p><p>关于github的注册这里就不再过多的赘述</p><h3 id="Github配置"><a href="#Github配置" class="headerlink" title="Github配置"></a>Github配置</h3><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9fa2c55408b247caa1a2c2a2ee1d6340~tplv-k3u1fbpfcp-watermark.image" alt="245.GIF"></p><p>1.创建一个新仓库<br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/75966f80cf684e64b065822a2b77469e~tplv-k3u1fbpfcp-watermark.image" alt="84a47a6287fc47798503d0952b040c3a.png"><br><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/784b3e4d8582464798050851d8e2082c~tplv-k3u1fbpfcp-watermark.image" alt="15.png"><br>    2.填写仓库名称和描述 ,必须选择public公开,否则存储的图片不能正常访问<br>    <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/091d4c47a167419a82613b622f01c162~tplv-k3u1fbpfcp-watermark.image" alt="16.png"><br>    3.进入设置进行配置<br>    <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1775c74abbe14414a781dac768d20e45~tplv-k3u1fbpfcp-watermark.image" alt="20.png"></p><p>   <img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/39d5c9f3ee3b472e959a6ae51450c556~tplv-k3u1fbpfcp-watermark.image" alt="21.png"></p><p>   <img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b46e4d888fdd4a78b88d5cb1b92c81e3~tplv-k3u1fbpfcp-watermark.image" alt="22.png"></p><p>   <img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c4dc11ca49db4dceb907239ad4cbbdcb~tplv-k3u1fbpfcp-watermark.image" alt="23.png"></p><p>   <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9b4a49192f0547938063c3ef3b15e7ac~tplv-k3u1fbpfcp-watermark.image" alt="24.png"></p><p>   最后会生成一个token令牌,因为我已经有了一个了,这里就不再演示</p><p>   <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/40c8f185a27d4a90aeb89d044f4ffe34~tplv-k3u1fbpfcp-watermark.image" alt="122.png"></p><p>   <strong>注意:生成的token令牌只会显示一次,请用记事本保存起来以免忘记</strong></p><p>   至此Github的配置已经完成</p><h3 id="Typora配置"><a href="#Typora配置" class="headerlink" title="Typora配置"></a>Typora配置</h3><p>   <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/90a7e7f6219a4231bbac1f247590c0d0~tplv-k3u1fbpfcp-watermark.image" alt="26.png"></p><p>   上面我们只是下载了picgo还没有进行配置最后我们配置一下picgo</p><p>   <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8a85ec240b2f4ae382853a2b681b06ea~tplv-k3u1fbpfcp-watermark.image" alt="27.png"><br>    <strong>仓库名</strong><br>    <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6c0d9919f7bc455cbdcdd7f49c6e9138~tplv-k3u1fbpfcp-watermark.image" alt="28.png"><br>    <strong>分支</strong></p><p>  默认master.从2020.10.01开始,默认分支变更为,main</p><p>   <strong>token</strong></p><p>   前面你生成的token令牌</p><p>   自定义域名</p><p><code>https://cdn.jsdelivr.net/gh/自己的github个人地址/仓库</code></p><p>   至此,typora+Github+picgo搭建图床已经全部完成</p><p>   我们可以回到typora验证一下是不是真的搭建成功了</p><p>   <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c6086c01d0bd46aea0c49a88003d5587~tplv-k3u1fbpfcp-watermark.image" alt="29.png"><br>    typora显示上传成功,并且在picgo也成功看到了图片,这就表明我们已经成功搭建完成了<img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/20cb0df5f8684deb8454e4ffd6803e7b~tplv-k3u1fbpfcp-watermark.image" alt="阿鲁91.gif"></p><p>   <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/64776c2096c04a3881a76b977c322048~tplv-k3u1fbpfcp-watermark.image" alt="30.png"></p><blockquote><p><strong>补充:typora的图片插入默认是居中显示的</strong></p><p><strong>非常的不美观,这个也非常的简单进入对应的主题文件夹的css文件中</strong></p><p><strong>将图片的排列方式更改为 text-align:left; 靠左排列,再重启typora即可</strong></p></blockquote><p>   <img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cc41d01344394d21b3534dc0ef265ff4~tplv-k3u1fbpfcp-watermark.image" alt="246.PNG"><br>    分享到此结束<br>    <img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/27bb7664d1414463a4ab9ce62388acc7~tplv-k3u1fbpfcp-watermark.image" alt="阿鲁49.gif"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 奇技淫巧 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 笔记 </tag>
             
         </tags>
       
